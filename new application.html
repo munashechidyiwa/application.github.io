@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBS Online POS Application</title>
+    <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
+    <style>
+        body {
+            font-family: 'Maven Pro', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* Background Image */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('NBS POS.png'); /* Replace with your image */
+            background-size: cover;
+            background-position: center;
+            z-index: 1; /* Below other content */
+        }
+
+        header {
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .logo img {
+            width: 100px; /* Adjust size as needed */
+        }
+
+        h1 {
+            color: green;
+            margin: 0;
+            text-align: center; /* Centered heading */
+            flex: 1; /* Allows the heading to take remaining space */
+        }
+
+        main {
+            display: flex;
+            margin-top: 80px; /* Space for fixed header */
+            flex: 1;
+            flex-wrap: wrap; /* Allow wrapping for smaller screens */
+            z-index: 2; /* Above background */
+        }
+
+        nav {
+            width: 200px;
+            background-color: white;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column; /* Align buttons vertically */
+        }
+
+        nav button {
+            width: 100%;
+            padding: 15px; /* Increased padding for larger buttons */
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+            font-size: 1.1em; /* Increased font size */
+            transition: background-color 0.3s;
+            display: flex; /* Flexbox for icon alignment */
+            align-items: center; /* Center icon and text vertically */
+        }
+
+        nav button i {
+            margin-right: 10px; /* Space between icon and text */
+        }
+
+        nav button:hover {
+            background-color: darkgreen;
+        }
+
+        .container {
+            flex: 1;
+            padding: 20px;
+            margin-left: 10px;
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent background */
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: none;
+            max-height: 80vh;
+            overflow-y: auto;
+            font-size: 1.1em; /* Increased text size in containers */
+        }
+
+        .instructions ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        footer {
+            background-color: white;
+            padding: 10px;
+            text-align: center;
+            color: green;
+            position: relative;
+        }
+
+        .footer-small {
+            font-size: 0.8em;
+            color: gray;
+        }
+
+        .button {
+            display: block;
+            margin: 20px auto;
+            padding: 15px 20px; /* Increased padding */
+            background-color: gray;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 1.1em; /* Increased font size */
+        }
+
+        .button.enabled {
+            background-color: green;
+        }
+
+        .big-input {
+            width: 100%;
+            padding: 15px; /* Increased padding for inputs */
+            font-size: 1.1em; /* Increased font size */
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .centered {
+            text-align: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                width: 100%; /* Full width on small screens */
+            }
+
+            nav button {
+                font-size: 1em; /* Adjust font size for smaller screens */
+            }
+
+            .big-input {
+                font-size: 1em; /* Adjust font size for inputs */
+            }
+
+            .button {
+                font-size: 1em; /* Adjust button font size */
+            }
+
+            h1 {
+                font-size: 1.5em; /* Adjust heading size on small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="background"></div> <!-- Background Image -->
+
+<header>
+    <div class="logo">
+        <img src="nbs-logo.png" alt="Logo"> <!-- Replace with your logo -->
+    </div>
+    <h1>NBS Online POS Application</h1>
+</header>
+
+<main>
+    <nav>
+        <button onclick="showContainer('homeContainer')"><i class="fas fa-home"></i>Home</button>
+        <button onclick="showContainer('applicationContainer')"><i class="fas fa-plus-circle"></i>New Application</button>
+        <button onclick="showContainer('trackContainer')"><i class="fas fa-search"></i>Track Application</button>
+        <button onclick="showContainer('viewContainer')"><i class="fas fa-eye"></i>View Application</button>
+        <button onclick="showContainer('termsContainer')"><i class="fas fa-file-alt"></i>Terms and Conditions</button>
+    </nav>
+
+    <div class="container" id="homeContainer">
+        <h2>Online Application Instructions</h2>
+        <ul>
+            <li>Fill in the form accordingly.</li>
+            <li>Upload the following clear scanned PDF documents during the application process:
+                <ul>
+                    <li>Memorandum and Articles of Association</li>
+                    <li>Certificate of Incorporation</li>
+                    <li>Tax Clearance</li>
+                    <li>CR14</li>
+                    <li>Copy of the Resolution of Board of Directors authorizing the registration as an NBS Merchant</li>
+                    <li>Copies of IDs of Directors or persons playing an equivalent role</li>
+                    <li>Proof of operating at permanent business premises/Copy of lease agreement for rented premises.</li>
+                    <li>Proof of residence for the directors - Utility bill within 3 months or affidavit signed by commissioner of oaths</li>
+                    <li>Two (2) passport size photos of Directors or persons playing an equivalent role</li>
+                    <li>Company profile</li>
+                    <li>CR 2</li>
+                    <li>CR 6</li>
+                </ul>
+            </li>
+            <li>Submit the form online.</li>
+            <li>If you are facing any challenges, kindly <a href="https://wa.me/+263776124769" target="_blank">WhatsApp</a> for assistance.</li>
+        </ul>
+        <button class="button" onclick="showContainer('applicationContainer')">Start Application</button>
+        <button class="button" onclick="downloadRequirements()">Download Requirements Document</button>
+    </div>
+
+    <div class="container" id="applicationContainer">
+        <h2>New Application</h2>
+        <label for="fullName">Full Name:</label>
+        <input type="text" id="fullName" class="big-input" placeholder="Munashe Chidyiwa" oninput="checkInput()">
+
+        <label for="idNumber">ID Number:</label>
+        <input type="text" id="idNumber" class="big-input" placeholder="18-144828-63" oninput="checkInput()">
+
+        <label for="businessName">Business Name:</label>
+        <input type="text" id="businessName" class="big-input" placeholder="Mudyiwa General Dealers" oninput="checkInput()">
+
+        <label for="businessAddress">Business Physical Address:</label>
+        <input type="text" id="businessAddress" class="big-input" placeholder="55 Market House Building Cnr Harare Street and Bank Street" oninput="checkInput()">
+
+        <label for="contactDetails">Contact Details:</label>
+        <input type="text" id="contactDetails" class="big-input" placeholder="0776124769" oninput="checkInput()">
+
+        <label for="terminalsApplied">Number Of Terminals Applied For:</label>
+        <input type="number" id="terminalsApplied" class="big-input" placeholder="12" oninput="checkInput()">
+
+        <button id="submitDocuments" class="button hidden" onclick="proceedToUpload()">Proceed to Submit Company Documents</button>
+    </div>
+
+    <div class="container" id="trackContainer">
+        <h2>Track Your Application</h2>
+        <label for="verificationCode">NBS Verification Code:</label>
+        <input type="text" id="verificationCode" class="big-input" placeholder="Enter your 6-digit code">
+
+        <button class="button centered" onclick="checkStatus()">Check Status</button>
+    </div>
+
+    <div class="container" id="viewContainer">
+        <h2>View Your Application</h2>
+        <label for="viewVerificationCode">Enter NBS Verification Code:</label>
+        <input type="text" id="viewVerificationCode" class="big-input" placeholder="Enter your 6-digit code">
+
+        <button class="button centered" onclick="submitView()">Submit</button>
+    </div>
+
+    <div class="container" id="termsContainer">
+        <h2>Terms and Conditions</h2>
+        <p>
+            Welcome to our Terms and Conditions page. Please read the following terms carefully before using our services.
+            By accessing or using our services, you agree to be bound by these terms. If you do not agree with any part of these terms, you must not use our services.
+        </p>
+        <p>
+            1. <strong>Eligibility</strong>: You must be at least 18 years old to use our services.
+        </p>
+        <p>
+            2. <strong>User Responsibilities</strong>: You agree to use our services only for lawful purposes and in a way that does not infringe on the rights of others.
+        </p>
+        <p>
+            3. <strong>Limitation of Liability</strong>: We will not be liable for any damages arising from your use of our services.
+        </p>
+        <p>
+            4. <strong>Changes to Terms</strong>: We reserve the right to modify these terms at any time. Your continued use of the services after changes indicates your acceptance of the new terms.
+        </p>
+        <button class="button" onclick="showContainer('homeContainer')">Back to Home</button>
+    </div>
+</main>
+
+<footer>
+    <div>Bank, Build & Go Beyond</div>
+    <div class="footer-small">©2025 NBS. All Rights Reserved.</div>
+</footer>
+
+<script>
+    function showContainer(containerId) {
+        const containers = document.querySelectorAll('.container');
+        containers.forEach(container => {
+            container.style.display = 'none';
+        });
+        document.getElementById(containerId).style.display = 'block';
+    }
+
+    function checkInput() {
+        const fullName = document.getElementById('fullName').value;
+        const idNumber = document.getElementById('idNumber').value;
+        const businessName = document.getElementById('businessName').value;
+        const businessAddress = document.getElementById('businessAddress').value;
+        const contactDetails = document.getElementById('contactDetails').value;
+        const terminalsApplied = document.getElementById('terminalsApplied').value;
+
+        const submitButton = document.getElementById('submitDocuments');
+        if (fullName && idNumber && businessName && businessAddress && contactDetails && terminalsApplied) {
+            submitButton.classList.remove('hidden');
+            submitButton.classList.add('enabled');
+        } else {
+            submitButton.classList.add('hidden');
+            submitButton.classList.remove('enabled');
+        }
+    }
+
+    function proceedToUpload() {
+        // Navigate to the upload page logic (not implemented here)
+        alert("Proceeding to upload company documents.");
+    }
+
+    function checkStatus() {
+        const code = document.getElementById('verificationCode').value;
+        // Implement API call to check the status (not implemented here)
+        alert("Checking status for code: " + code);
+    }
+
+    function submitView() {
+        const viewCode = document.getElementById('viewVerificationCode').value;
+        // Implement API call to submit the view request (not implemented here)
+        alert("Submitting view for code: " + viewCode);
+    }
+
+    function downloadRequirements() {
+        const link = document.createElement('a');
+        link.href = 'requirements.pdf'; // Replace with the actual document path
+        link.download = 'NBS_Requirements.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    // Show the home container by default
+    showContainer('homeContainer');
+</script>
+
+</body>
+</html>
